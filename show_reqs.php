@@ -9,33 +9,7 @@ include ("header.php");
 			$db_server->set_charset("utf8");
 			If (!$db_server) die("Can not connect to a database!!".mysqli_connect_error($db_server));
 			mysqli_select_db($db_server,$db_database)or die(mysqli_error($db_server));
-		// EQUIPMENT
-			$check_in_mysql='SELECT id,name FROM equipment WHERE 1';
-					
-					$answsqlcheck=mysqli_query($db_server,$check_in_mysql);
-					if(!$answsqlcheck) die("SELECT into equipment TABLE failed: ".mysqli_error($db_server));
-		// Top of the table
-		$equipment=array();
-		$places=array();
-		$ind=0;
-		while ($row = mysqli_fetch_row( $answsqlcheck ))
-		{	
-			$ind=$row[0];
-			$equipment[$ind]=$row[1];
-		}
-			
 		
-		// PLACES
-			$check_in_mysql='SELECT id,name FROM places WHERE 1';
-					
-					$answsqlcheck=mysqli_query($db_server,$check_in_mysql);
-					if(!$answsqlcheck) die("SELECT into places TABLE failed: ".mysqli_error($db_server));
-		$ind=0;
-		while ($row = mysqli_fetch_row( $answsqlcheck ))
-		{	
-			$ind=$row[0];
-			$places[$ind]=$row[1];
-		}
 		
 		// LIST REQUESTS
 		
@@ -44,7 +18,7 @@ include ("header.php");
 							INNER JOIN users ON requests.user_id=users.id
 							INNER JOIN equipment ON requests.equipment_id=equipment.id
 							INNER JOIN places ON requests.place_id=places.id								
-							WHERE 1";
+							WHERE 1 ORDER BY requests.id ";
 					
 					$answsqlcheck=mysqli_query($db_server,$check_in_mysql);
 					if(!$answsqlcheck) die("LOOKUP into requests TABLE failed: ".mysqli_error($db_server));
