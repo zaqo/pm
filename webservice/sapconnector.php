@@ -25,7 +25,7 @@ function SAP_connector($params)
 	try
 	{
 		//$result = $client->ZsdOrderAviCrud($params);
-		$result = $client->Z_PM_ALM_NOTIF_CRUD2($params);//ZPmAlmNotifCrud
+		$result = $client->Z_PM_ALM_NOTIF_CRUD($params);//ZPmAlmNotifCrud
 	}
 	catch(SoapFault $fault)
 	{
@@ -42,8 +42,8 @@ function SAP_connector($params)
 	
 	
 	// Вывод запроса и ответа
-	echo "Запрос:<pre>".htmlspecialchars($client->__getLastRequest()) ."</pre>";
-	echo "Ответ:<pre>".htmlspecialchars($client->__getLastResponse())."</pre>";
+	//echo "Запрос:<pre>".htmlspecialchars($client->__getLastRequest()) ."</pre>";
+	//echo "Ответ:<pre>".htmlspecialchars($client->__getLastResponse())."</pre>";
 	
 	// Вывод отладочной информации в случае возникновения ошибки
 	if (is_soap_fault($result)) 
@@ -76,22 +76,23 @@ function SAP_response_handler($Return2)
 			$num=$result->NUMBER;
 	
 		echo "<tr><td colspan=\"2\" ><hr color=\"black\" ></td></tr>";		
-		if ($result->TYPE=='E')
+		if (($result->TYPE=='I')&&($result->ID=='ZWS')&&($result->NUMBER=='000'))
 		{
-			echo "<tr><td>RESULT:</td><td>ERROR</td></tr>";	
+			echo "<tr><td>RESULT:</td><td>Done</td></tr>";	
 		
-			echo "<tr><td>Message:</td><td>$message</td></tr>";
-			echo "<tr><td>Number:</td><td>$num</td></tr>";
-			echo "<tr><td>ID:</td><td>$sid</td></tr>";
+			//echo "<tr><td>Message:</td><td>$message</td></tr>";
+			//echo "<tr><td>Number:</td><td>$num</td></tr>";
+			//echo "<tr><td>ID:</td><td>$sid</td></tr>";
 			echo "<tr><td>Parameter #:</td><td>$param</td></tr>";
 			echo "<tr><td>V1:</td><td>$V1</td></tr>";
 			echo "<tr><td>V2:</td><td>$V2</td></tr>";
 			echo "<tr><td>V3:</td><td>$V3</td></tr>";
-			echo "<tr><td>V4:</td><td>$V4</td></tr>";
-			echo "<tr><td>System:</td><td>$system</td></tr>";
+			echo "<tr><td>Document ID</:</td><td>$V4</td></tr>";
+			//echo "<tr><td>System:</td><td>$system</td></tr>";
 		}
 		else
 		{
+			echo "<tr><td>RESULT:</td><td>FAILURE</td></tr>";	
 			echo "<tr><td>Message:</td><td>$message</td></tr>";
 			echo "<tr><td>Number:</td><td>$num</td></tr>";
 			echo "<tr><td>ID:</td><td>$sid</td></tr>";

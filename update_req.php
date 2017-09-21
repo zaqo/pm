@@ -16,7 +16,7 @@ class Request
 			public $NOTIFDATE;
 			public $NOTIFTIME;
 			public $SERVICEMODE; 	 //   4
-			public $SHORT_TEXT; 	 //  32 positions
+			public $SHORT_TEXT; 	 //  40 positions
 			public $LONG_TEXT;  	 // 132 positions
 	}
  
@@ -59,8 +59,8 @@ class Request
 	$date_req=$time_fact['year'].'-'.$time_fact['mon'].'-'.$time_fact['mday'];
 	
 	echo '<pre>';
-	var_dump($time_req);
-	var_dump($date_req);
+	//var_dump($time_req);
+	//var_dump($date_req);
 	$req= new Request();
 	$req->BREAKDOWN='X';
 	$req->ID_EQUIPMENT='300000000';
