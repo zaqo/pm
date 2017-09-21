@@ -87,7 +87,7 @@ function SAP_response_handler($Return2)
 			echo "<tr><td>V1:</td><td>$V1</td></tr>";
 			echo "<tr><td>V2:</td><td>$V2</td></tr>";
 			echo "<tr><td>V3:</td><td>$V3</td></tr>";
-			echo "<tr><td>Document ID</:</td><td>$V4</td></tr>";
+			echo "<tr><td>Document ID:</td><td>$V4</td></tr>";
 			//echo "<tr><td>System:</td><td>$system</td></tr>";
 		}
 		else
