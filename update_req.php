@@ -9,18 +9,15 @@ include ("functions.php");
 
 class Request
 	{
-			public $Breakdown;	 //   1
-			public $IdEquipment; //  18
-			
-			public $IdNotiftype; //   2
-			public $IdReporter;	 //  12
-			public $Notifdate;
-			public $Notiftime;
-			public $Servicemode; //   4
-			public $ShortText; 	 //  32 positions
-			
-			public $LongText;  	 // 132 positions
-			
+			public $BREAKDOWN;	     //   1
+			public $ID_EQUIPMENT;    //  18
+			public $ID_NOTIFTYPE;    //   2
+			public $ID_REPORTER;	 //  12
+			public $NOTIFDATE;
+			public $NOTIFTIME;
+			public $SERVICEMODE; 	 //   4
+			public $SHORT_TEXT; 	 //  32 positions
+			public $LONG_TEXT;  	 // 132 positions
 	}
  
 	if(isset($_REQUEST['id'])) $id		= $_REQUEST['id'];
@@ -44,7 +41,7 @@ class Request
 			$textsql='INSERT INTO requests
 						(user_id,equipment_id,place_id,description)
 						VALUES( 1,'.$eq.','.$place.',"'.$description.'")';
-		echo $textsql;				
+		//echo $textsql;				
 		$answsql=mysqli_query($db_server,$textsql);
 		if(!$answsql) die("Database UPDATE of requests TABLE failed: ".mysqli_error($db_server));
 	$time_fact=getdate();
@@ -56,28 +53,29 @@ class Request
 		$time_fact['minutes']='0'.$time_fact['minutes'];
 	if((int)$time_fact['seconds']<10)
 		$time_fact['seconds']='0'.$time_fact['seconds'];
+	if((int)$time_fact['hours']<10)
+		$time_fact['hours']='0'.$time_fact['hours'];	
 	$time_req=$time_fact['hours'].':'.$time_fact['minutes'].':'.$time_fact['seconds'];
 	$date_req=$time_fact['year'].'-'.$time_fact['mon'].'-'.$time_fact['mday'];
 	
-	//echo '<pre>';
-	//var_dump($time_req);
-	//var_dump($date_req);
+	echo '<pre>';
+	var_dump($time_req);
+	var_dump($date_req);
 	$req= new Request();
-	$req->Breakdown='X';
-	$req->IdEquipment='200000000';
-	$req->IdNotiftype='M2';
-	$req->IdReporter=$user_name;
-	$req->Breakdown='X';
-	$req->Notifdate=$date_req;
-	$req->Notiftime=$time_req;
-	$req->Servicemode='NT_C';
-	$req->ShortText=$desc_txt;
-	$req->LongText=$description;
+	$req->BREAKDOWN='X';
+	$req->ID_EQUIPMENT='300000000';
+	$req->ID_NOTIFTYPE='M2';
+	$req->ID_REPORTER=$user_name;
+	$req->NOTIFDATE=$date_req;
+	$req->NOTIFTIME=$time_req;
+	$req->SERVICEMODE='NT_C';
+	$req->SHORT_TEXT=$desc_txt;
+	$req->LONG_TEXT=$description;
 	//var_dump($req);
-	//echo '</pre>';
-	//$sdorder_num=SAP_connector($req);
+	echo '</pre>';
+	$sdorder_num=SAP_connector($req);
 	
-	echo '<script>history.go(-2);</script>';	
+	//echo '<script>history.go(-2);</script>';	
 	
 mysqli_close($db_server);
 ?>

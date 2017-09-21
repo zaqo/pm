@@ -25,7 +25,7 @@ function SAP_connector($params)
 	try
 	{
 		//$result = $client->ZsdOrderAviCrud($params);
-		$result = $client->ZPmAlmNotifCrud($params);
+		$result = $client->Z_PM_ALM_NOTIF_CRUD2($params);//ZPmAlmNotifCrud
 	}
 	catch(SoapFault $fault)
 	{
@@ -62,21 +62,21 @@ function SAP_response_handler($Return2)
 	
 	echo '<table><tr><th>PARAMETER</th><th>VALUE</th></tr>';
 	
-	$result=$Return2->Return2->item;
-	var_dump($result);
-		$message=$result->Message;
-			$V1=$result->MessageV1;
-			$V2=$result->MessageV2;
-			$V3=$result->MessageV3;
-			$V4=$result->MessageV4;
-			$system=$result->System;
-			$sid=$result->Id;
-			$param=$result->Parameter;
-			$type=$result->Type;
-			$num=$result->Number;
+	$result=$Return2->RETURN2->item;
+	//var_dump($result);
+		$message=$result->MESSAGE;
+			$V1=$result->MESSAGE_V1;
+			$V2=$result->MESSAGE_V2;
+			$V3=$result->MESSAGE_V3;
+			$V4=$result->MESSAGE_V4;
+			$system=$result->SYSTEM;
+			$sid=$result->ID;
+			$param=$result->PARAMETER;
+			$type=$result->TYPE;
+			$num=$result->NUMBER;
 	
 		echo "<tr><td colspan=\"2\" ><hr color=\"black\" ></td></tr>";		
-		if ($result->Type=='E')
+		if ($result->TYPE=='E')
 		{
 			echo "<tr><td>RESULT:</td><td>ERROR</td></tr>";	
 		
