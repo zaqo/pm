@@ -17,6 +17,7 @@
 			
 			<script type="text/javascript" src="/pm/js/jquery.minical.plain.js"></script>
 			<script type="text/javascript"  src="/pm/js/myFunctions.js"></script>
+			<script type="text/javascript"  src="/pm/js/accordion.js"></script>
 		
 <?php
 	include_once 'functions.php';
