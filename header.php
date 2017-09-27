@@ -47,7 +47,7 @@
 				<button onclick='myFunction2()' class='dropbtn'>Заявки</button>
 				<div id=\"myDropdown2\" class=\"dropdown-content\">
 				<a href=\"show_reqs.php\">Показать Заявки</a>
-				<a href=\"create_req.php\">Новая Заявка</a>
+				<a href=\"index.php\">Новая Заявка</a>
 				</div>
 			</div>
 			";//<div class=\"userid\">Вы вошли в систему как: $userstr</div>

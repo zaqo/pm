@@ -32,7 +32,13 @@ table.fullTab {
     border-collapse: collapse;
 	margin:0px auto;
 	text-align: center;
-	
+	width: 100%;
+}
+table.transpTab {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+	margin:0px auto;
+	text-align: center;
 	width: 100%;
 }
 td, th {
@@ -50,7 +56,9 @@ td input[type="checkbox"] {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-
+.fullTab tr:nth-child(odd) {
+    background-color: white;
+}
 form {
     font-family: arial, sans-serif;
     border-collapse: collapse;

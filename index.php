@@ -19,7 +19,7 @@ include ("header.php");
 					$answsql=mysqli_query($db_server,$check_deps);
 					if(!$answsql) die("LOOKUP into department TABLE failed: ".mysqli_error($db_server));	
 	
-			$content.='<table class="fullTab"><caption>Выберите единицу оборудования:</caption>';
+			$content.='<table class="transpTab"><caption>Выберите единицу оборудования:</caption>';
 			
 			$content.='<tr><td><div class="mini-menu">
 						<ul>

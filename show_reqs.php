@@ -13,18 +13,17 @@ include ("header.php");
 		
 		// LIST REQUESTS
 		
-			$check_in_mysql="SELECT requests.id,places.name,equipment.name,description,date_rec,users.name
+			$check_in_mysql="SELECT requests.id,eq_reg.name,description,date_rec,users.name
 							FROM requests
 							INNER JOIN users ON requests.user_id=users.id
-							INNER JOIN equipment ON requests.equipment_id=equipment.id
-							INNER JOIN places ON requests.place_id=places.id								
+							INNER JOIN eq_reg ON requests.equipment_id=eq_reg.id_SAP							
 							WHERE 1 ORDER BY requests.id ";
 					
 					$answsqlcheck=mysqli_query($db_server,$check_in_mysql);
 					if(!$answsqlcheck) die("LOOKUP into requests TABLE failed: ".mysqli_error($db_server));
 		// Top of the table
 		$content.= '<table class="fullTab"><caption><b>Сервисные Заявки</b></caption><br>';
-		$content.= '<tr><th>№ </th><th>Описание</th><th>Место</th><th>Оборудование</th><th>Инициатор</th><th>Дата</th>
+		$content.= '<tr><th>№ </th><th>Описание</th><th>Оборудование</th><th>Инициатор</th><th>Дата</th>
 					</tr>';
 		// Iterating through the array
 		$counter=1;
@@ -32,17 +31,17 @@ include ("header.php");
 		while( $row = mysqli_fetch_row( $answsqlcheck ))  
 		{ 
 				$rec_id=$row[0];
-				$place=$row[1];
-				$eq=$row[2];
-				$req_txt=$row[3];
-				$req_date=$row[4];
-				$user_name=$row[5];
+				
+				$eq=$row[1];
+				$req_txt=$row[2];
+				$req_date=$row[3];
+				$user_name=$row[4];
 				
 				
 				$content.= "<tr><td>$counter</td>";
 				//$content.= "<td><a href=\"edit_client.php?id=$rec_id\">$nav_id</a></td>";
 				$content.= "<td>$req_txt</td>";
-				$content.= "<td>$place</td>";
+				//$content.= "<td>$place</td>";
 				$content.= "<td>$eq</td>";
 				$content.= "<td>$user_name</td>";
 				$content.= "<td>$req_date</td>";				
