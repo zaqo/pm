@@ -21,8 +21,7 @@ class Request
 	}
  
 	if(isset($_REQUEST['id'])) $id		= $_REQUEST['id'];
-	if(isset($_REQUEST['eq'])) $eq		= $_REQUEST['eq'];
-	if(isset($_REQUEST['place'])) $place	= $_REQUEST['place'];
+	if(isset($_REQUEST['id_SAP'])) $id_SAP		= $_REQUEST['id_SAP'];
 	if(isset($_REQUEST['desc'])) $description	= sanitizestring($_REQUEST['desc']);
 	if(isset($_REQUEST['user'])) $user_name		= $_REQUEST['user'];
 	
@@ -36,11 +35,11 @@ class Request
 		mysqli_select_db($db_server,$db_database)or die(mysqli_error($db_server));
 			
 		if (isset($id))		
-			$textsql='UPDATE requests SET description= WHERE id="'.$id.'"';
+			$textsql='UPDATE requests SET description='.$description.' WHERE id='.$id.'';
 		else
 			$textsql='INSERT INTO requests
-						(user_id,equipment_id,place_id,description)
-						VALUES( 1,'.$eq.','.$place.',"'.$description.'")';
+						(user_id,equipment_id,description)
+						VALUES( 1,'.$id_SAP.',"'.$description.'")';
 		//echo $textsql;				
 		$answsql=mysqli_query($db_server,$textsql);
 		if(!$answsql) die("Database UPDATE of requests TABLE failed: ".mysqli_error($db_server));
@@ -63,7 +62,7 @@ class Request
 	//var_dump($date_req);
 	$req= new Request();
 	$req->BREAKDOWN='X';
-	$req->ID_EQUIPMENT='300000000';
+	$req->ID_EQUIPMENT=$id_SAP;
 	$req->ID_NOTIFTYPE='M2';
 	$req->ID_REPORTER=$user_name;
 	$req->NOTIFDATE=$date_req;

@@ -19,30 +19,83 @@ include ("header.php");
 					$answsql=mysqli_query($db_server,$check_deps);
 					if(!$answsql) die("LOOKUP into department TABLE failed: ".mysqli_error($db_server));	
 	
-			$content.='<h1>Регистрация сервисных заявок</h1>';
+			$content.='<table class="fullTab"><caption>Выберите единицу оборудования:</caption>';
 			
-			$content.='<div class="mini-menu">
+			$content.='<tr><td><div class="mini-menu">
 						<ul>
 							<li>
 								<a href="http://">ПЕРЕЧЕНЬ ОБОРУДОВАНИЯ</a>
 							</li>';
+			$content_eq='<td>';	
+			$content_dpt='';				
 			while($row=mysqli_fetch_row($answsql))
 			{
+				$dpt_id=$row[0];
 				$content.='<li class="sub">
-                <a href="#">'.$row[1].'</a>';
+                <a href="#" class="d'.$dpt_id.'">'.$row[1].'</a>';
+				
+				
+				//CHECK GROUPS IN DEPARTMENT
+				$check_groups='SELECT id
+								FROM group_of_objects
+											WHERE dpt_id='.$dpt_id.' AND area_id IS NULL';
+					
+				$answsql_dpt=mysqli_query($db_server,$check_groups);
+				if(!$answsql_dpt) die("LOOKUP into eq_reg TABLE failed: ".mysqli_error($db_server));
+							
+				while($row_dpt=mysqli_fetch_row($answsql_dpt))
+				{
+							// BUILD A LIST OF OBJECTS IN THE GROUP
+							$check_groups='SELECT id_SAP,name
+											FROM eq_reg
+											WHERE group_id='.$row_dpt[0];
+					
+							$answsql_eq=mysqli_query($db_server,$check_groups);
+							if(!$answsql_eq) die("LOOKUP into eq_reg TABLE failed: ".mysqli_error($db_server));
+							$content_dpt.='<div class="mydata" id="d'.$dpt_id.'">';
+							while($row_eq=mysqli_fetch_row($answsql_eq))
+							{
+								$content_dpt.='<p><b><a href="/pm/create_req.php?id='.$row_eq[0].'">'.$row_eq[1].'</a></b></p>';
+							}
+							$content_dpt.='</div>';
+				}
 				
 				//LIST AREAS
 				
-				$check_areas='SELECT id,name
-							FROM area							
-							WHERE dpt_id='.$row[0];
+				$check_areas='SELECT area.id,area.name,group_of_objects.id
+							FROM area
+							LEFT JOIN group_of_objects
+							ON (area.id=group_of_objects.area_id AND group_of_objects.dpt_id='.$dpt_id.'
+								AND group_of_objects.direction_id=1)
+							WHERE area.dpt_id='.$row[0];
 					
 					$answsql_area=mysqli_query($db_server,$check_areas);
 					if(!$answsql_area) die("LOOKUP into areas TABLE failed: ".mysqli_error($db_server));
 					$content.='<ul>';
 					while($row_area=mysqli_fetch_row($answsql_area))
 					{
-						$content.='<li class="sub"><a href="#">'.$row_area[1].'</a></li>';
+						$gr_id=$row_area[2];
+						$area_id=$row_area[0];
+						$content.='<li class="sub"><a class="a'.$area_id.'" href="#">'.$row_area[1].'</a></li>';
+						if(isset($row_area[2]))
+						{
+							
+	
+							// BUILD A LIST OF OBJECTS IN THE GROUP
+							$check_groups='SELECT id_SAP,name
+											FROM eq_reg
+											WHERE group_id='.$gr_id;
+					
+							$answsql_eq=mysqli_query($db_server,$check_groups);
+							if(!$answsql_eq) die("LOOKUP into eq_reg TABLE failed: ".mysqli_error($db_server));
+							$content_eq.='<div class="mydata" id="a'.$dpt_id.'">';
+							while($row_eq=mysqli_fetch_row($answsql_eq))
+							{
+								
+								$content_eq.='<p><b><a href="/pm/create_req.php?id='.$row_eq[0].'">'.$row_eq[1].'</a></b></p>';
+							}
+							$content_eq.='</div>';
+						}
 					}
 					$content.='</ul>';
 				$content.='</li>';
@@ -91,8 +144,11 @@ include ("header.php");
             </li>
         </ul>
     </div>';*/
-		$content.='</div>';
-			
+		$content.='</div></td>';
+		$content_eq.='</div>';
+		$content_dpt.='</div></td></tr></table>';
+			$content.=$content_eq;
+			$content.=$content_dpt;
 			Show_page($content);
 	
 ?>

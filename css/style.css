@@ -1,11 +1,12 @@
 @charset "utf-8";
 body {
     background-color: lightblue;
+	background-image: url(http://localhost/pm/bg-body.jpg);
 	}
 
 h1 {
-    color: navy;
-    margin-left: 20px;
+    color: white;
+    margin-left: 80px;
 }
 table {
     font-family: arial, sans-serif;
@@ -31,11 +32,11 @@ table.fullTab {
     border-collapse: collapse;
 	margin:0px auto;
 	text-align: center;
-	align: center;
-	width: 75%;
+	
+	width: 100%;
 }
 td, th {
-    border: 1px solid #dddddd;
+    border: 0px solid #dddddd;
     text-align: center;
     padding: 8px;
 	width: 20%;
@@ -71,7 +72,7 @@ color: red;
 
  /* Dropdown Button */
 .dropbtn {
-    background-color: navy;
+    background-color: grey;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -168,7 +169,7 @@ caption {
   font-weight: bold;
   font-size: 2em;
   padding: 10px; 
-  color: navy;
+  color: white;
   text-shadow: 1px 1px 0 rgba(0,0,0,.3);
  }
 caption:before, caption:after {
@@ -289,8 +290,11 @@ caption:before, caption:after {
 }
 /* Блок меню Аккордеон */
 .mini-menu {
+	position: relative;
+    vertical-align:middle;
+	float:left;
     margin: 0px auto;
-    max-width: 420px;
+    max-width: 220px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -387,4 +391,20 @@ caption:before, caption:after {
 /* активный переключатель */
 .mini-menu .sub > a.active:before{
     color: #f2bd00;
+}
+/* equipment data */
+.mydata{
+	display:none;
+	color: white;
+	font: normal 14px Helvetica, Arial, sans-serif;
+}
+span{
+	color: white;
+	font: normal 14px Helvetica, Arial, sans-serif;
+	background: #333;
+	border-bottom: 1px solid #222;
+    
+}
+a {
+	color: white;
 }

@@ -3,14 +3,17 @@ require_once 'login_pm.php';
 
 include ("header.php"); 
 	
+	if(isset($_REQUEST['id']))	$id_SAP	= $_REQUEST['id'];
 		
 		$content="";
+		$user_name='GUEST'; //Just for testing
 		//Set up mySQL connection
 			$db_server = mysqli_connect($db_hostname, $db_username,$db_password);
 			$db_server->set_charset("utf8");
 			If (!$db_server) die("Can not connect to a database!!".mysqli_connect_error($db_server));
 			mysqli_select_db($db_server,$db_database)or die(mysqli_error($db_server));
 		
+		/* Beyond this line everything is obsolete
 		// EQUIPMENT
 			$check_in_mysql='SELECT id,name FROM equipment WHERE 1';
 					
@@ -34,15 +37,13 @@ include ("header.php");
 		while ($row = mysqli_fetch_row( $answsqlcheck ))
 		$place_dd.='<option value="'.$row[0].'">'.$row[1].'</option>';
 		$place_dd.='</select>';		
-		
+		*/
 		$content.= '<form id="form" method=post action=update_req.php >
 					<table><caption><b>Заявка</b></caption><br>
-					<tr><th>Поле</th><th>Значение</th></tr>
-					<tr><td>Местонахождение:</td><td>'.$place_dd.'</td></tr>
-					<tr><td>Оборудование:</td><td>'.$equipment_dd.'</td></tr>
 					<tr><td>Описание:</td><td><textarea rows="5" cols="45" name="desc" placeholder="Описание проблемы" ></textarea></td></tr>
 					<tr><td colspan="2"><p>
-					<input type="hidden" name="user" value="'.$user.'">
+					<input type="hidden" name="user" value="'.$user_name.'">
+					<input type="hidden" name="id_SAP" value="'.$id_SAP.'">
 					<input type="submit" name="send" class="send" value="ВВОД"></p></td></tr>
 					</table></form>';
 		
